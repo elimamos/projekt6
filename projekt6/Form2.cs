@@ -13,8 +13,14 @@ namespace projekt6
     {
         private bool ative=false;
         private int noClickIterations = 0;
+        private int flightUpdateCounter = 0;
+        private int flightUpdateNum = 20;
         Form3 warning;
         Form loginPage;
+        FlightListMaker flm;
+
+        Random randNum = new Random();
+
         public Form2(Form loginPage)
         {
             InitializeComponent();
@@ -22,10 +28,11 @@ namespace projekt6
             this.warning = new Form3(this);
 
             //towrzenie listy lotow
-            FlightListMaker flm = new FlightListMaker();
+            flm = new FlightListMaker();
             List<Flight> fl = flm.listMaker();
-            Console.WriteLine(fl[0].flightNumber);
-            dataGridView1.DataSource = fl;
+
+
+            dataGridView1.DataSource = fl.Select(o => new { Number = o.flightNumber, From = o.from, Destination = o.destination, Status = o.status }).ToList(); ;
 
             //tworzenie timera
             Timer timer1 = new Timer();
@@ -37,9 +44,23 @@ namespace projekt6
        
         private void timer1_Tick(object sender, EventArgs e)
         {
-            Console.WriteLine(this.Visible);
+
+
+           
             if (this.Visible)
             {
+                flightUpdateCounter++;
+                if (flightUpdateCounter == flightUpdateNum)
+                {
+                    Console.WriteLine("Updating");
+                    flightUpdateCounter = 0;
+                    flightUpdateNum = this.randNum.Next(10,30);
+                    List<Flight> fl = flm.updateFlightList();
+
+                    dataGridView1.DataSource = fl.Select(o => new { Number = o.flightNumber, From = o.from, Destination = o.destination, Status = o.status }).ToList(); ;
+                }
+
+
                 if (this.ative)
                 {
                     this.noClickIterations = 0;

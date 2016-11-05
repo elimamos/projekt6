@@ -9,81 +9,130 @@ namespace projekt6
     class FlightListMaker
     {
       
-        List<string> cityList = new List<string>() { "GDAŃSK", "DUBLIN", "OSLO", "WARSZAWA", "BERLIN" };
+        List<string> cityList = new List<string>() { "NOWY JORK", "DUBLIN", "OSLO", "WARSZAWA", "BERLIN" };
         Random randNum = new Random();
-
-     
+        List<Flight> flightList;
+        List<string> outStatus = new List<string>() { "Check in", "Gate Closed", "Departed" };
+        List<string> inStatus = new List<string>() { "On time", "Delayed", "Landed","Canceled"};
         
 
             public List<Flight> listMaker()
             {
                
                 Flight newFlight = new Flight();
-                List<Flight> flightList = new List<Flight>();
-                for (int i = 0; i <21 ; i++)
+                this.flightList = new List<Flight>();
+                for (int i = 0; i <5 ; i++)
                 {
-                    int aRandomPos = this.randNum.Next(cityList.Count - 1);//Returns a nonnegative random number less than the specified maximum (firstNames.Count).
-                    int randomPos = this.randNum.Next(cityList.Count - 1);
-                    int flightNumer = randNum.Next(999, 10000);
-                   newFlight = makeFlight( aRandomPos, randomPos, flightNumer);
-                    flightList.Add(newFlight);
+                    
+                    newFlight = makeFlight();
+                    this.flightList.Add(newFlight);
                 }
 
-               
+              
+                return this.flightList;
+            }
+
+          
+            public List<Flight> updateFlightList()
+            {
+                int flightIndex= this.randNum.Next(0,flightList.Count);
+
+                if(this.flightList[flightIndex].isOut==0){
+                    Console.WriteLine("UpdatingIN");
+                    this.flightList[flightIndex] = updateInFlight(flightList[flightIndex]);
+
+                }
+                else{
+                    Console.WriteLine("UpdatingOut");
+                }
 
                 return flightList;
             }
-            private Flight makeFlight( int aRandomPos,int randomPos,int flightNumer) {
+            private Flight updateOutFligh(Flight flight)
+            {
+                return null;
+            }
+            private Flight updateInFlight(Flight flight)
+            {
+                if (flight.statusIndex == 0)
+                {
+                    double isDelayed = randNum.NextDouble();
+                    if (isDelayed < 0.1)
+                    {
+                        flight.status = this.inStatus[1];
+                        flight.statusIndex = 1;
+                    }
+                    else
+                    {
+                        flight.status = this.inStatus[2];
+                        flight.statusIndex = 2;
+                    }
+                }
+                else if (flight.statusIndex == 1 )
+                {
+                    double isCancelled = randNum.NextDouble(); 
+                    if (isCancelled < 0.1)
+                    {
+                        flight.status = this.inStatus[3];
+                        flight.statusIndex = 3;
 
-             
+                    }
+                    else
+                    {
+                        flight.status = this.inStatus[2];
+                        flight.statusIndex = 2;
+                    }
+                    
+                }
+                else if (flight.statusIndex == 3 || flight.statusIndex == 2)
+                {
+                    flight = makeFlight();
+                }
 
-               
+
+                return flight;
+
+            } 
+
+            private Flight makeFlight() {
+
+                int aRandomPos = this.randNum.Next(cityList.Count - 1);
+                int flightNumer = randNum.Next(999, 10000);
+
 
                 Flight flight = new Flight();
 
-                flight.from = cityList[aRandomPos];
-                if (aRandomPos != randomPos)
-                {
+                int isOut = this.randNum.Next(0, 2);
+                flight.isOut = isOut;
 
-                    flight.destination = cityList[randomPos];
+                if (isOut == 1)
+                {
+                    flight.from = "GDAŃSK";
+                    flight.destination = cityList[aRandomPos];
+                    flight.status = this.outStatus[0];
+                    flight.statusIndex = 0;
+                   
+                  
                 }
                 else
                 {
-                    if (randomPos != cityList.Count())
-                    {
-                        randomPos = +1;
-                        flight.destination = cityList[randomPos];
-                    }
-                    else
-                        flight.destination = cityList[0];
+                    flight.destination = "GDAŃSK";
+                    flight.from = cityList[aRandomPos];
+                    flight.status = this.inStatus[0];
+                    flight.statusIndex = 0;
+
                 }
+
                 char[] f;
                 char[] t;
                 f = flight.from.ToCharArray(0, 1);
                 t = flight.destination.ToCharArray(0, 1);
 
                
-                Console.WriteLine(flightNumer);
+               
                 flight.flightNumber = f[0].ToString() + t[0].ToString() + flightNumer.ToString();
 
-                if (flight.from == "GDAŃSK")
-                {
-                    flight.status = new DataGridViewComboBoxCell()
-                   {
-
-                       DataSource = new string[] { "BOARDING", "LAST CALL", "END OF BOARDING" }
-
-                   };
-                }
-                else
-                {
-                    flight.status = new DataGridViewComboBoxCell()
-                     {
-
-                         DataSource = new string[] { "ON TIME", "LANDED", "DELAYED", "CANCLED" }
-
-                     };
-                }
+               
                 return flight;
 
             
