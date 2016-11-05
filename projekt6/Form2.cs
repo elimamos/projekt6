@@ -17,17 +17,16 @@ namespace projekt6
         public Form2()
         {
             InitializeComponent();
-            // = new List<Flight>();
-
-            // fl.Add(new flights() {flightNumber="kakka", from ="kska", destination="OK", status="on time"}); 
+           
 
             FlightListMaker flm = new FlightListMaker();
 
             List<Flight> fl = flm.listMaker();
-            Console.WriteLine(fl[0].flightNumber);
-            //  fl = flm.listMaker();
+           
+         
             dataGridView1.DataSource = fl;
-
+            
+           
 
             Timer timer1 = new Timer();
             timer1.Interval = 500;
