@@ -82,6 +82,15 @@ namespace projekt6
 
         private void button2_Click(object sender, EventArgs e)
         {
+            progressBar1.Value = 0;
+            progressBar1.Step = 20;
+
+            for (int j = 0; j < 5; j++)
+            {
+
+                progressBar1.PerformStep();
+            }
+
             if (checkedListBox1.CheckedItems.Count == checkedListBox1.Items.Count)
             {
                 MessageBox.Show("BOARDING FINISHED.");
