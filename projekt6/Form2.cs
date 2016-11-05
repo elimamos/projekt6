@@ -24,7 +24,6 @@ namespace projekt6
             //towrzenie listy lotow
             FlightListMaker flm = new FlightListMaker();
             List<Flight> fl = flm.listMaker();
-            Console.WriteLine(fl[0].flightNumber);
             dataGridView1.DataSource = fl;
 
             //tworzenie timera
@@ -37,7 +36,7 @@ namespace projekt6
        
         private void timer1_Tick(object sender, EventArgs e)
         {
-            Console.WriteLine(this.Visible);
+            
             if (this.Visible)
             {
                 if (this.ative)

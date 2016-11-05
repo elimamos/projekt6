@@ -9,7 +9,7 @@ namespace projekt6
     class FlightListMaker
     {
       
-        List<string> cityList = new List<string>() { "GDAŃSK", "DUBLIN", "OSLO", "WARSZAWA", "BERLIN" };
+        List<string> cityList = new List<string>() { "NOWY YORK", "DUBLIN", "OSLO", "WARSZAWA", "BERLIN" };
         Random randNum = new Random();
 
      
@@ -33,30 +33,22 @@ namespace projekt6
 
                 return flightList;
             }
+
             private Flight makeFlight( int aRandomPos,int randomPos,int flightNumer) {
+                 Flight flight = new Flight();
+                 int gdansk;
+                 gdansk = randNum.Next(0, 2);
+                 if (gdansk == 0)
+                 {
 
-             
-
-               
-
-                Flight flight = new Flight();
-
-                flight.from = cityList[aRandomPos];
-                if (aRandomPos != randomPos)
-                {
-
-                    flight.destination = cityList[randomPos];
-                }
-                else
-                {
-                    if (randomPos != cityList.Count())
-                    {
-                        randomPos = +1;
-                        flight.destination = cityList[randomPos];
-                    }
-                    else
-                        flight.destination = cityList[0];
-                }
+                     flight.from = "GDAŃSK";
+                     flight.destination = cityList[randomPos];
+                 }
+                 else
+                 {
+                     flight.destination = "GDAŃSK";
+                     flight.from = cityList[randomPos];
+                 }
                 char[] f;
                 char[] t;
                 f = flight.from.ToCharArray(0, 1);
@@ -66,24 +58,14 @@ namespace projekt6
                 Console.WriteLine(flightNumer);
                 flight.flightNumber = f[0].ToString() + t[0].ToString() + flightNumer.ToString();
 
-                if (flight.from == "GDAŃSK")
-                {
-                    flight.status = new DataGridViewComboBoxCell()
-                   {
+              
 
-                       DataSource = new string[] { "BOARDING", "LAST CALL", "END OF BOARDING" }
+                      // DataSource = new string[] { "BOARDING", "LAST CALL", "END OF BOARDING" };
 
-                   };
-                }
-                else
-                {
-                    flight.status = new DataGridViewComboBoxCell()
-                     {
 
-                         DataSource = new string[] { "ON TIME", "LANDED", "DELAYED", "CANCLED" }
+                     //  DataSource = new string[] { "ON TIME", "LANDED", "DELAYED", "CANCLED" };
 
-                     };
-                }
+                
                 return flight;
 
             
