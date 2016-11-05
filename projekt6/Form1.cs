@@ -22,7 +22,7 @@ namespace projekt6
     
 
         /* przycisk zalogowania*/
-
+        //
         private void button1_Click(object sender, EventArgs e)
         {
             /*string login =textBox3.Text;
