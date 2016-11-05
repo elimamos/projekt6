@@ -11,18 +11,17 @@ namespace projekt6
 {
     public partial class Form3 : Form
     {
-        public Form3()
+        Form flightList;
+        public Form3(Form flightList)
         {
+            this.flightList = flightList;
             InitializeComponent();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.Close();
-            Form2 program = new Form2();
-            program.Close();
-             Form1 login = new Form1();
-            login.Show();
+            flightList.Show();
+            this.Hide();
         }
     }
 }

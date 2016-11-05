@@ -13,55 +13,63 @@ namespace projekt6
     {
         private bool ative=false;
         private int noClickIterations = 0;
-        
-        public Form2()
+        Form3 warning;
+        Form loginPage;
+        public Form2(Form loginPage)
         {
             InitializeComponent();
-            // = new List<Flight>();
+            this.loginPage = loginPage;
+            this.warning = new Form3(this);
 
-            // fl.Add(new flights() {flightNumber="kakka", from ="kska", destination="OK", status="on time"}); 
-
+            //towrzenie listy lotow
             FlightListMaker flm = new FlightListMaker();
-
             List<Flight> fl = flm.listMaker();
             Console.WriteLine(fl[0].flightNumber);
-            //  fl = flm.listMaker();
             dataGridView1.DataSource = fl;
 
-
+            //tworzenie timera
             Timer timer1 = new Timer();
             timer1.Interval = 500;
-
             timer1.Enabled = true;
-
             timer1.Tick += new System.EventHandler(timer1_Tick);
             
-
-
-
         }
        
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (this.ative)
+            Console.WriteLine(this.Visible);
+            if (this.Visible)
             {
-                this.noClickIterations = 0;
+                if (this.ative)
+                {
+                    this.noClickIterations = 0;
+                }
+                else
+                {
+                    this.noClickIterations++;
+                }
+
+                if (noClickIterations > 60)
+                {
+
+                    this.warning.Show();
+                    this.Hide();
+                    noClickIterations = 0;
+                }
+
+                this.ative = false;
             }
-            else
-            {
+            else if(warning.Visible){
                 this.noClickIterations++;
-            }
 
-            if (noClickIterations > 60)
-            {
-                Form3 program = new Form3();
-                program.Show();
-                this.Hide();
-                noClickIterations = 0;
-            }
+                if (noClickIterations > 60)
+                {
+                    warning.Hide();
+                    loginPage.Show();
+                    noClickIterations = 0;
+                }
 
-            this.ative = false;
-        
+            }
         }
 
 
@@ -73,7 +81,6 @@ namespace projekt6
 
        
 }
-
 
     
 }

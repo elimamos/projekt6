@@ -12,15 +12,15 @@ namespace projekt6
 {
     public partial class Form1 : Form
     {
+        Form2 flights;
         public Form1()
         {
             InitializeComponent();
+            flights = new Form2(this);
         }
 
 
-        
-    
-
+      
         /* przycisk zalogowania*/
         //
         private void button1_Click(object sender, EventArgs e)
@@ -39,8 +39,8 @@ namespace projekt6
                 MessageBox.Show("Check your User name and Password");
             }*/
             this.Hide();
-            Form2 program = new Form2();
-            program.Show();
+
+            this.flights.Show();
 
         }
 
