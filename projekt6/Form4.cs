@@ -26,9 +26,6 @@ namespace projekt6
 
          
            
-            
-            
-            
         }
 
         

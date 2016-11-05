@@ -14,7 +14,13 @@ namespace projekt6
         List<Flight> flightList;
         List<string> outStatus = new List<string>() { "Check in", "Gate Closed", "Departed" };
         List<string> inStatus = new List<string>() { "On time", "Delayed", "Landed","Canceled"};
-        
+        Form2 flightListForm;
+
+        public FlightListMaker(Form2 flightListForm)
+        {
+            this.flightListForm = flightListForm;
+
+        }
 
             public List<Flight> listMaker()
             {
@@ -43,14 +49,31 @@ namespace projekt6
 
                 }
                 else{
-                    Console.WriteLine("UpdatingOut");
+                    this.flightList[flightIndex] = updateOutFlight(flightList[flightIndex]);
                 }
 
                 return flightList;
             }
-            private Flight updateOutFligh(Flight flight)
+            private Flight updateOutFlight(Flight flight)
             {
-                return null;
+                if (flight.statusIndex == 0)
+                {
+                    Form4 boarding = new Form4(flight, flightListForm);
+                    flightListForm.Hide();
+                    boarding.Show();
+                    flight.status = this.outStatus[1];
+                    flight.statusIndex = 1;
+                }
+                else if(flight.statusIndex==1){
+                    flight.statusIndex = 2;
+                    flight.status = this.outStatus[2];
+                }
+                else if (flight.statusIndex == 2)
+                {
+                    flight = makeFlight();
+                }
+
+                return flight;
             }
             private Flight updateInFlight(Flight flight)
             {

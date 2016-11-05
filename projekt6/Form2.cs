@@ -28,7 +28,7 @@ namespace projekt6
             this.warning = new Form3(this);
 
             //towrzenie listy lotow
-            flm = new FlightListMaker();
+            flm = new FlightListMaker(this);
             List<Flight> fl = flm.listMaker();
 
 
