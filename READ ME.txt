@@ -1,0 +1,1 @@
+Symulator lotów, który bada, czy pracownik jest przy stanowisku pracy, sprawdzając jego aktywność. Projekt na Podstawy Organizacji Systemów Komputerowych.
