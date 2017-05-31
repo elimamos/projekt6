@@ -58,7 +58,7 @@ namespace projekt6
        
       
        time.Stop();
-       if (random > 0.85)
+       if (random > 0.40)
        {
            MessageBox.Show("END OF BOARDING");
            this.Hide();

@@ -26,7 +26,7 @@ namespace projekt6
         private void button1_Click(object sender, EventArgs e)
         {
 
-            /*
+            
             string login =textBox3.Text;
             string password = textBox2.Text; 
           
@@ -41,10 +41,10 @@ namespace projekt6
             {
                 MessageBox.Show("Check your User name and Password");
             }
-             * */
-            this.Hide();
+             
+           // this.Hide();
 
-            this.flights.Show();
+            //this.flights.Show();
 
         }
 

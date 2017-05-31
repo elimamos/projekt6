@@ -33,7 +33,7 @@ namespace projekt6
 
 
             dataGridView1.DataSource = fl.Select(o => new { Number = o.flightNumber, From = o.from, Destination = o.destination, Status = o.status }).ToList(); ;
-
+            
             //tworzenie timera
             Timer timer1 = new Timer();
             timer1.Interval = 500;
@@ -44,7 +44,7 @@ namespace projekt6
        
         private void timer1_Tick(object sender, EventArgs e)
         {
-
+            CellFormatting();
 
            
             if (this.Visible)
@@ -52,13 +52,16 @@ namespace projekt6
                 flightUpdateCounter++;
                 if (flightUpdateCounter == flightUpdateNum)
                 {
-                    Console.WriteLine("Updating");
+                    //Console.WriteLine("Updating");
                     flightUpdateCounter = 0;
                     flightUpdateNum = this.randNum.Next(10,30);
                     List<Flight> fl = flm.updateFlightList();
-
+                    
                     dataGridView1.DataSource = fl.Select(o => new { Number = o.flightNumber, From = o.from, Destination = o.destination, Status = o.status }).ToList(); ;
+
+                   
                 }
+
 
 
                 if (this.ative)
@@ -100,6 +103,20 @@ namespace projekt6
             
         }
 
+        private void CellFormatting()
+        {
+            foreach (DataGridViewRow Myrow in dataGridView1.Rows)
+            {            //Here 2 cell is target value and 1 cell is Volume
+                if (Myrow.Cells[3].Value.ToString() == "Check in")// Or your condition 
+                {
+                    Myrow.Cells[3].Style.BackColor = Color.Red;
+                }
+                else
+                {
+                    Myrow.DefaultCellStyle.BackColor = Color.Green;
+                }
+            }
+        }
        
 }
 

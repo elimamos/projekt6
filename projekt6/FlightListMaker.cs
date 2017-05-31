@@ -44,7 +44,7 @@ namespace projekt6
                 int flightIndex= this.randNum.Next(0,flightList.Count);
 
                 if(this.flightList[flightIndex].isOut==0){
-                    Console.WriteLine("UpdatingIN");
+                    //Console.WriteLine("UpdatingIN");
                     this.flightList[flightIndex] = updateInFlight(flightList[flightIndex]);
 
                 }
@@ -58,6 +58,7 @@ namespace projekt6
             {
                 if (flight.statusIndex == 0)
                 {
+                    
                     Form4 boarding = new Form4(flight, flightListForm);
                     flightListForm.Hide();
                     boarding.Show();
